@@ -1,47 +1,42 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {Card, Row, Col} from 'react-bootstrap'
+import {Card} from 'react-bootstrap'
 
 const Book = ({book}) => {
     const [show, setShow] = useState(false);
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-  
+
     return (
         <>
-            <Button variant="success" onClick={handleShow} className='w-100' style={{fontSize:'0.8rem'}}>
+            <Button variant="primary btn-sm" onClick={handleShow}>
                 보기
             </Button>
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{book.title}</Modal.Title>
+                </Modal.Header>
                 <Modal.Body>
                     <Card>
-                        <Card.Body className='book'>
-                            <Row>
-                                <Col md={4}>
-                                    <img src={book.thumbnail}/>
-                                </Col>
-                                <Col>
-                                    <h6>{book.title}</h6>
-                                    <div>가격: {book.fmtPrice}원</div>
-                                    <div>저자: {book.authors}</div>
-                                    <div>출판사: {book.publisher}</div>
-                                    <div>출판일: {book.datetime}</div>
-                                </Col>
-                            </Row>
+                        <Card.Body className="book">
+                            <img src={book.thumbnail}/>
+                            <div>가격: {book.price}</div>
+                            <div>저자: {book.authors}</div>
                             <hr/>
-                            <Row>
-                                <Col>
-                                    {book.contents}
-                                </Col>    
-                            </Row>
+                            <div>{book.contents}</div>
                         </Card.Body>
                     </Card>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        확인
+                        Close
                     </Button>
                 </Modal.Footer>
             </Modal>
